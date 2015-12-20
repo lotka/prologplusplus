@@ -337,6 +337,10 @@ void consult_test(const char * s)
 
 void query_test(string s)
 {
+	if(s == "halt.")
+	{
+		exit(1);
+	}
 	PredicateRef p(s,predicates);
 	bool unified = false;
 	for(int i = 0; i < predicates.size(); ++i)
