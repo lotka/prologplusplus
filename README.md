@@ -3,6 +3,8 @@ An exercise in writing a prolog interpreter in C++, the main aim is to figure ou
 
 ## Current features:
 * you can check the truth of hard coded facts
+
+
 ## ToDo List:
 * allow consulting from file
 * more useful error messages
