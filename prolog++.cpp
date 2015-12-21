@@ -30,7 +30,7 @@ PredicateRef::PredicateRef(string input, vector<Predicate *> &predicates)
 {
 	int commas 	= countChar(input,',');
 	// left brackets
-	int lb 		= countChar(input,'(');
+	int lb 			= countChar(input,'(');
 	// right brackets
 	int rb	    = countChar(input,')');
 	// dots
@@ -133,7 +133,7 @@ Predicate::Predicate(string s, vector<Predicate *> &predicates)
 	}
 	if(lb > 0)
 	{
-		name = cropString(s,'(');	
+		name = cropString(s,'(');
 	}
 	else if(dot > 0)
 	{
@@ -168,7 +168,7 @@ Predicate::Predicate(string s, vector<Predicate *> &predicates)
 	}
 	cropString(s,'-');
 
-	// cout << "name : " << name << endl; 
+	// cout << "name : " << name << endl;
 	// cout << "Arguments : ";
  //  	for (unsigned int i = 0; i < raw_args.size(); ++i)
 	// {
@@ -207,7 +207,7 @@ Predicate::Predicate(string s, vector<Predicate *> &predicates)
 				break;
 			}
 		}
-	// 	cout << endl << "Conditions : "; 
+	// 	cout << endl << "Conditions : ";
 	//   	for (unsigned int i = 0; i < raw_conditions.size(); ++i)
 	// 	{
 	// 		cout << raw_conditions[i];
@@ -239,11 +239,7 @@ bool Predicate::unifyWith(PredicateRef * ref)
 	{
 		for(int i = 0; i < airty; ++i)
 		{
-			if(args[i]->free_variable)
-			{
-				cout << "panic!" << endl;
-			}
-			if(not (*args[i] == *ref->args[i]))
+			if(not args[i]->unifyWith(ref->args[i]))
 			{
 				return false;
 			}
@@ -352,6 +348,13 @@ void query_test(string s)
 	}
 	if(unified)
 	{
+		for(int i = 0; i < p.args.size(); ++i)
+		{
+			for(int j = 0; j < p.args[i]->possibilties.size(); ++j)
+			{
+				cout << *p.args[i] << "=" << *p.args[i]->possibilties[j] << endl;
+			}
+		}
 		cout << endl << "yes" << endl;
 	}
 	else
@@ -362,12 +365,14 @@ void query_test(string s)
 
 
 int main()
-{	
+{
 	cout << "Prolog++" << endl;
 	cout << "~~~~~~~~~~~~~~~~~~~~~" << endl;
 	cout << "Preloaded facts: " << endl << endl;
-	consult_test("| equal(theThing,theThing).");
-	consult_test("| basic(a,b,c).");
+	consult_test("equal(theThing,theThing).");
+	consult_test("basic(a,b,c).");
+	consult_test("person(alice).");
+	consult_test("person(bob).");
 	cout << endl;
 	// consult_test("good(X,Y) :- equal(X,X),equal(Y,Y).");
 	// consult_test("equal_test(X,Y) :- equal(X,Y).");
