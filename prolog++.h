@@ -16,6 +16,7 @@ string cropString(string &input_string, char delimiter);
 int countChar(string s, char c);
 // count te occurences of c upto a delimiter
 int countChar(string s, char c, char delimiter);
+string strip_ws(string s);
 
 class Atom;
 class PredicateReference;
@@ -24,6 +25,7 @@ class Predicate;
 // typically an argument of a function
 class Atom
 {
+private:
 public:
 	Atom(string n);
 	string name;
@@ -36,68 +38,18 @@ public:
 	vector<Atom *> possibilties;
 
 	// print the name of the atom
-	friend ostream &operator<<(ostream &out, Atom &c)     //output
+	friend ostream &operator<<(ostream &out, Atom &c)
 	{
 	        cout << c.name;
 	}
 
 	// check two atoms are equal
-	bool operator == (Atom &b)
-	{
-		if(b.free_variable or free_variable)
-		{
-			return true;
-		}
-		if(this->name == b.name)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
+	bool operator == (Atom &b);
 
 	// check two atoms are not equal
-	bool operator != (Atom &b)
-	{
-		if(b.free_variable or free_variable)
-		{
-			return false;
-		}
-		if(this->name != b.name)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
+	bool operator != (Atom &b);
 
-	bool unifyWith(Atom * a)
-	{
-		if(a->free_variable)
-		{
-			if(not free_variable)
-			{
-				a->possibilties.push_back(this);
-			}
-			else
-			{
-				cout << "not sure what to do here" << endl;
-			}
-			return true;
-		}
-		else if(*a == *this)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
+	bool unifyWith(Atom * a);
 };
 
 class PredicateRef
