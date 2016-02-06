@@ -7,7 +7,6 @@ An exercise in writing a prolog interpreter in C++, the main aim is to figure ou
 
 
 ## ToDo List:
+* Do some kind of checking for horn clauses and do SLD resolution
 * allow consulting from file
 * more useful error messages
-* get statements after the :- symbol to work
-* get equality operators to work
